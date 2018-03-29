@@ -1,0 +1,825 @@
+# 10-ways-to-encrypt
+#include <iostream>
+#include <iomanip>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	cout << "Good Morning User \n\n";
+	cout << "What do you like to do today ?\n";
+	cout << "If you want to cipher a message press 1 or if you want to decipher a message press 2\n\nEnter your choice : ";
+	int choice;
+	int cipherNum;
+	cin >> choice;
+	if (choice == 1)
+	{
+
+		cout << "\nWhat is the type of the cipher you want ?\n";
+		cout << "\t1. Affine Cipher\n\t2. Caesar Cipher\n\t3. Atbash Cipher\n\t4. ROT13 Cipher\n\t5.Baconian Cipher\n\t6. Simple Substitution Cipher\n\t7. Polybius Square Cipher\n\t8. Morse Code\n\t9. XOR Cipher\n\t10. Rail-fence Cipher\n ";
+		cin >> cipherNum;
+		cout << endl;
+
+		if (cipherNum == 1)
+		{
+            float x ,old_or_new;
+            int m,y ,a ,b,c;
+            string word;
+            cout<< "enter the keys.3 int a, b and c and should (a*c)%26=1 is true\n";
+            cout<<"a =>";
+            cin>>a;
+            cout<<"\nb=>";
+            cin>>b;
+            cout<<"\nc=>";
+            cin>>c;
+            if((a*c)%26!=1){
+                while(true)
+                 {
+                    cout<< "invalid\nenter the keys.3 int a, b and c and should (a*c)%26=1 is true\n";
+                    cout<<"a =>";
+                    cin>>a;
+                    cout<<"\nb=>";
+                    cin>>b;
+                    cout<<"\nc=>";
+                    cin>>c;
+                    if((a*c)%26==1){break;}
+                }
+		    }
+		       cout<<"enter your letter\n=>";
+               cin.ignore();
+               getline(cin,word);
+               for (int i=0 ;i<word.size();i++)
+              {
+                   word[i] = char(tolower(word[i]));
+                   word[i]+'0';
+                   if (word[i]>122|| 97>word[i]){continue;}
+                   m=word[i]-97;
+                   m=(a*m+b)%26;
+                   word[i]=97+m;
+		      }
+		cout<<"=>"<<word;
+		}
+        if (cipherNum == 2)
+		{
+			int shifts, y;
+			string text, ciphertext;
+			char x[27];
+			x[0] = 'A', x[1] = 'B', x[2] = 'C', x[3] = 'D', x[4] = 'E', x[5] = 'F', x[6] = 'G', x[7] = 'H', x[8] = 'I', x[9] = 'J', x[10] = 'K', x[11] = 'L';
+			x[12] = 'M', x[13] = 'N', x[14] = 'O', x[15] = 'P', x[16] = 'Q', x[17] = 'R', x[18] = 'S', x[19] = 'T', x[20] = 'U', x[21] = 'V', x[22] = 'W', x[23] = 'X', x[24] = 'Y', x[25] = 'Z';
+			cout << "enter the plain text : ";
+			cin.ignore();
+			getline(cin, text);
+			cout << endl;
+			cout << "enter the number of shifts : ";
+			cin >> shifts;
+			cout << endl;
+			for (int i = 0; i < text.size(); i++)
+			{
+				if (text[i] == ' ') {
+					cout << " ";
+					continue;
+				}
+				text[i] = char(toupper(text[i]));
+				for (int j = 0; j < 26; j++)
+				{
+					if (text[i] == x[j] && j + shifts <= 25)
+					{
+						ciphertext += x[j + shifts];
+					}
+					else if (text[i] == x[j] && j + shifts > 25)
+					{
+						y = (shifts - (26 - j));
+						ciphertext += x[y];
+					}
+				}
+
+			}
+			cout << "the cipher text : " << ciphertext;
+		}
+
+		if (cipherNum == 3)
+		{
+			string ciphertext, text;
+			char x[26], y[26];
+			x[0] = 'A', x[1] = 'B', x[2] = 'C', x[3] = 'D', x[4] = 'E', x[5] = 'F', x[6] = 'G', x[7] = 'H', x[8] = 'I', x[9] = 'J', x[10] = 'K', x[11] = 'L';
+			x[12] = 'M', x[13] = 'N', x[14] = 'O', x[15] = 'P', x[16] = 'Q', x[17] = 'R', x[18] = 'S', x[19] = 'T', x[20] = 'U', x[21] = 'V', x[22] = 'W', x[23] = 'X', x[24] = 'Y', x[25] = 'Z';
+
+			y[25] = 'A', y[24] = 'B', y[23] = 'C', y[22] = 'D', y[21] = 'E', y[20] = 'F', y[19] = 'G', y[18] = 'H', y[17] = 'I', y[16] = 'J', y[15] = 'K', y[14] = 'L';
+			y[13] = 'M', y[12] = 'N', y[11] = 'O', y[10] = 'P', y[9] = 'Q', y[8] = 'R', y[7] = 'S', y[6] = 'T', y[5] = 'U', y[4] = 'V', y[3] = 'W', y[2] = 'X', y[1] = 'Y', y[0] = 'Z';
+			cout << "enter the plain text : ";
+			cin.ignore();
+			getline(cin, text);
+			cout << endl;
+			for (int j = 0; j < text.size(); j++)
+			{
+				text[j] = char(toupper(text[j]));
+				for (int i = 0; i < 26; i++)
+				{
+					if (text[j] == x[i])
+					{
+						ciphertext += y[i];
+					}
+				}
+				if (text[j] == ' ')
+				{
+					ciphertext += ' ';
+				}
+			}
+			cout << "The ciphered text is : " << ciphertext;
+		}
+
+		if (cipherNum == 4)
+		{
+			char letters[26] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
+			char ciphers[26] = { 'n','o','p','q','r','s','t','u','v','w','x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m' };
+			string sentence;
+			cout << "Enter the Message to Cipher : ";
+			cin.ignore();
+			getline(cin, sentence);
+			cout << "\n The Ciphered Message is : ";
+			for (int i = 0; i < sentence.size(); i++)
+			{
+				sentence[i] = char(tolower(sentence[i]));
+				if (sentence[i] > 122 || sentence[i] < 97)
+				{
+					cout << sentence[i];
+					continue;
+				}
+				if (sentence[i] == '1' || sentence[i] == '2' || sentence[i] == '3' || sentence[i] == '4' || sentence[i] == '5' || sentence[i] == '6' || sentence[i] == '7' || sentence[i] == '8' || sentence[i] == '9' || sentence[i] == '0')
+					cout << sentence[i];
+				else if (sentence[i] == ' ')
+					cout << ' ';
+				else
+				{
+					for (int k = 0; k < 26; k++)
+					{
+						if (sentence[i] == letters[k])
+						{
+							cout << ciphers[k];
+							break;
+						}
+					}
+				}
+
+			}
+		}
+
+		if (cipherNum == 5)
+		{
+			char letters[26] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
+			string ciphers[26] = { "aaaaa","aaaab","aaaba","aaabb","aabaa","aabab",
+				"aabba","aabbb","abaaa","abaab","ababa","ababb","abbaa",
+				"abbab","abbba","abbbb","baaaa","baaab","baaba","baabb",
+				"babaa","babab","babba","babbb","bbaaa","bbaab" };
+			string sentence;
+			cout << "Enter the Message to Cipher : ";
+			cin.ignore();
+			getline(cin, sentence);
+			cout << "\n The Ciphered Message is : ";
+			for (int i = 0; i < sentence.size(); i++)
+			{
+				sentence[i] = char(tolower(sentence[i]));
+				if (sentence[i] == ' ') {
+					cout << "  ";
+					continue;
+				}
+				for (int k = 0; k < 27; k++)
+				{
+					if (sentence[i] == letters[k])
+						cout << ciphers[k] << " ";
+					else
+						continue;
+				}
+			}
+		}
+
+		if (cipherNum == 6)
+		{
+			int x;
+			string key, word, askii = "abcdefghijklmnopqrstuvwzyz";
+			cout << "enter the Keys of cipher\n=> ";
+			cin >> key;
+			cin.ignore();
+			cout << "enter the letter \n=> ";
+			getline(cin, word);
+			for (int i = 0; i < word.size(); i++)
+			{
+				word[i] = char(tolower(word[i]));
+				word[i] + '0';
+				if (word[i] > 122 || word[i] < 97) { continue; }
+				x = word[i] - 97;
+				word[i] = key[x];
+			}
+			cout << "=> " << word << endl;
+		}
+
+		if (cipherNum == 7)
+		{
+			int a, b, y, m;
+			string change, word;
+			char new_key[5][5] = {
+				{ 'a','b','c','d','e' },
+				{ 'f','g','h','i','j' },
+				{ 'k','l','m','n','o' },
+				{ 'p','q','r','s','t' },
+				{ 'u','v','x','y','z' } };
+			char key[5][5] = {
+				{ 'a','b','c','d','e' },
+				{ 'f','g','h','i','j' },
+				{ 'k','l','m','n','o' },
+				{ 'p','q','r','s','t' },
+				{ 'u','v','x','y','z' } };
+			cout << "enter the key\n=>";
+			cin >> change;
+
+			for (int i = 0; i < 5; i++)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					m = (change[i] - '0') - 1;
+					new_key[m][j] = key[i][j];
+				}
+			}
+
+			for (int i = 0; i < 5; i++)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					m = (change[j] - '0') - 1;
+					key[i][m] = new_key[i][j];
+
+				}
+			}
+			cout << "enter your letter\n=>";
+			cin.ignore();
+			getline(cin, word);
+			for (int i = 0; i < word.size(); i++)
+			{
+				word[i] = char(tolower(word[i]));
+				word[i] + '0';
+				if (word[i] > 122 || 97 > word[i]) { cout << word[i]; continue; }
+				if (word[i] == 'w') { cout << ","; continue; }
+				for (int a = 0; a < 5; a++)
+				{
+					for (int b = 0; b < 5; b++)
+					{
+						if (word[i] == key[a][b])
+						{
+							cout << a + 1 << b + 1;
+							break;
+						}
+
+					}
+				}
+			}
+		}
+
+		if (cipherNum == 8)
+		{
+			char letters[] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
+			string ciphers[] = { ".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.." };
+			string sentence;
+			cout << "Enter the Message to Cipher : ";
+			cin.ignore();
+			getline(cin, sentence);
+			cout << "\n The Ciphered Message is : ";
+			for (int i = 0; i < sentence.size(); i++)
+			{
+				sentence[i] = char(tolower(sentence[i]));
+				if (sentence[i] == ' ') {
+					cout << "  ";
+					continue;
+				}
+				for (int k = 0; k < 27; k++)
+				{
+					if (sentence[i] == letters[k]) {
+						cout << ciphers[k] << " ";
+					}
+				}
+			}
+			cout << endl;
+		}
+
+		if (cipherNum == 9)
+		{
+			string text, ciphertext;
+			char key;
+			cout << "enter the plain text : ";
+			cin.ignore();
+			getline(cin, text);
+			cout << endl;
+			cout << "enter the secret key : ";
+			cin >> key;
+			cout << endl;
+			cout << "HEXA Representation :";
+			for (int i = 0; i < text.size(); i++)
+			{
+				ciphertext += int(text[i]) ^ (int(key)) % (int(sizeof(text)));
+				cout << hex << int(ciphertext[i]);
+
+			}
+			cout << "\n" << "Cipher text : " << ciphertext << "\n";
+		}
+
+		if (cipherNum == 10)
+		{
+			int key;
+			cout << "\nchoose num bigger than 1 ==>>";
+			cin >> key;
+			string w;
+			cout << "\n enter the word which you would cipher ==>>";
+			cin.ignore();
+			getline(cin, w);
+			if (key == 1)
+			{
+				cout << w;
+			}
+			else if (key <= 0)
+			{
+				cout << "error >.< e5tar rakam tany ya zaky";
+			}
+			else if (key > 2 * (w.size() - 1))
+			{
+				cout << "this number is too longer pleas try again ^.^ ";
+			}
+			else
+			{
+				char c[key][28] = {};
+				for (int i = 0; i < key; i++)
+					for (int j = 0; j < 28; j++)
+						c[i][j] = '.';
+				int j = 0;
+				int i = 0;
+				int line = 0;
+				while (i < w.length())
+				{
+					while (line < key)
+					{
+						c[line][j] = w[i];
+						line++;
+						j++;
+						i++;
+						if (i >= w.length())
+							break;
+					}
+					line -= 2;
+					while (line >= 0)
+					{
+						c[line][j] = w[i];
+						line--;
+						j++;
+						i++;
+						if (i >= w.length())
+							break;
+					}
+					line += 2;
+				}
+
+				string word;
+				for (int i = 0; i < key; i++)
+				{
+					for (int j = 0; j < 28; j++)
+					{
+						if (c[i][j] != '.')
+							word += c[i][j];
+					}
+				}
+				cout << word << endl;
+			}
+		}
+	}
+
+		if (choice == 2)
+		{
+			cout << "\nWhat is the type of the ciphered message ?\n";
+			cout << "\t1. Affine Cipher\n\t2. Caesar Cipher\n\t3. Atbash Cipher\n\t4. ROT13 Cipher\n\t5.Baconian Cipher\n\t6. Simple Substitution Cipher\n\t7. Polybius Square Cipher\n\t8. Morse Code\n\t9. XOR Cipher\n\t10. Rail-fence Cipher\n ";
+			cin >> cipherNum;
+			cout << endl;
+
+			if (cipherNum == 1)
+			{
+				int a, b, c;
+				cout << "enter the keys.3 int a, b and c and should (a*c)%26=1 is true\n";
+				cout << "a =>";
+				cin >> a;
+				cout << "\nb=>";
+				cin >> b;
+				cout << "\nc=>";
+				cin >> c;
+				if ((a*c) % 26 != 1) {
+					while (true)
+					{
+						cout << "invalid\nenter the keys.3 int a, b and c and should (a*c)%26=1 is true\n";
+						cout << "a =>";
+						cin >> a;
+						cout << "\nb=>";
+						cin >> b;
+						cout << "\nc=>";
+						cin >> c;
+						if ((a*c) % 26 == 1) { break; }
+					}
+				}
+				string word;
+				int m;
+				cout << "enter your letter\n=>";
+				cin.ignore();
+				getline(cin, word);
+				for (int i = 0; i < word.size(); i++)
+				{
+					word[i] = char(tolower(word[i]));
+					word[i] + '0';
+					if (word[i] > 122 || 97 > word[i]) { continue; }
+					m = word[i] - 97;
+					if (m < b) { m = (c*(26 + (m - b))) % 26; }                  //to ignore the '-'
+					else { m = (c*(m - b)) % 26; }
+					word[i] = 97 + m;
+				}
+				cout << "->" << word;
+			}
+
+			if (cipherNum == 2)
+			{
+				char x[27];
+				x[0] = 'A', x[1] = 'B', x[2] = 'C', x[3] = 'D', x[4] = 'E', x[5] = 'F', x[6] = 'G', x[7] = 'H', x[8] = 'I', x[9] = 'J', x[10] = 'K', x[11] = 'L';
+				x[12] = 'M', x[13] = 'N', x[14] = 'O', x[15] = 'P', x[16] = 'Q', x[17] = 'R', x[18] = 'S', x[19] = 'T', x[20] = 'U', x[21] = 'V', x[22] = 'W', x[23] = 'X', x[24] = 'Y', x[25] = 'Z';
+				string ciphertext, text;
+				int shifts, y;
+				cout << "enter the cipher text : ";
+				cin.ignore();
+				getline(cin, ciphertext);
+				cout << endl;
+				cout << "enter the number of shifts : ";
+				cin >> shifts;
+				cout << endl;
+				for (int i = 0; i < ciphertext.size(); i++)
+				{
+					ciphertext[i] = char(toupper(ciphertext[i]));
+					for (int j = 0; j < 26; j++)
+					{
+						if (ciphertext[i] == x[j] && j - shifts >= 0)
+						{
+							text += x[j - shifts];
+						}
+						else if (ciphertext[i] == x[j] && j - shifts < 0)
+						{
+							y = (j + (26 - shifts));
+							text += x[y];
+						}
+					}
+				}
+				cout << "the plain text : " << text;
+			}
+
+			if (cipherNum == 3)
+			{
+				string ciphertext, text;
+				char x[26], y[26];
+				x[0] = 'A', x[1] = 'B', x[2] = 'C', x[3] = 'D', x[4] = 'E', x[5] = 'F', x[6] = 'G', x[7] = 'H', x[8] = 'I', x[9] = 'J', x[10] = 'K', x[11] = 'L';
+				x[12] = 'M', x[13] = 'N', x[14] = 'O', x[15] = 'P', x[16] = 'Q', x[17] = 'R', x[18] = 'S', x[19] = 'T', x[20] = 'U', x[21] = 'V', x[22] = 'W', x[23] = 'X', x[24] = 'Y', x[25] = 'Z';
+
+				y[25] = 'A', y[24] = 'B', y[23] = 'C', y[22] = 'D', y[21] = 'E', y[20] = 'F', y[19] = 'G', y[18] = 'H', y[17] = 'I', y[16] = 'J', y[15] = 'K', y[14] = 'L';
+				y[13] = 'M', y[12] = 'N', y[11] = 'O', y[10] = 'P', y[9] = 'Q', y[8] = 'R', y[7] = 'S', y[6] = 'T', y[5] = 'U', y[4] = 'V', y[3] = 'W', y[2] = 'X', y[1] = 'Y', y[0] = 'Z';
+				cout << "enter the cipher text : ";
+				cin.ignore();
+				getline(cin, ciphertext);
+				cout << endl;
+				for (int j = 0; j < ciphertext.size(); j++)
+				{
+					ciphertext[j] = char(toupper(ciphertext[j]));
+					for (int i = 0; i < 26; i++)
+					{
+						if (ciphertext[j] == y[i])
+						{
+							text += x[i];
+						}
+					}
+					if (ciphertext[j] == ' ')
+					{
+						text += ' ';
+					}
+				}
+				cout << "The desiphered Text is : " << text;
+			}
+
+			if (cipherNum == 4)
+			{
+				char letters[26] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
+				char ciphers[26] = { 'n','o','p','q','r','s','t','u','v','w','x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m' };
+				string sentence;
+				cin.ignore();
+				cout << "Enter the Ciphered Message : ";
+				getline(cin, sentence);
+				cout << "The Deciphered Message is : ";
+				for (int i = 0; i < sentence.size(); i++)
+				{
+					sentence[i] = char(tolower(sentence[i]));
+					if (sentence[i] == '1' || sentence[i] == '2' || sentence[i] == '3' || sentence[i] == '4' || sentence[i] == '5' || sentence[i] == '6' || sentence[i] == '7' || sentence[i] == '8' || sentence[i] == '9' || sentence[i] == '0')
+						cout << sentence[i];
+					else if (sentence[i] == ' ')
+						cout << ' ';
+					else
+					{
+						for (int k = 0; k < 26; k++)
+						{
+							if (sentence[i] == ciphers[k])
+							{
+								cout << letters[k];
+								break;
+							}
+						}
+					}
+
+				}
+			}
+
+			if (cipherNum == 5)
+			{
+				char letters[26] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
+				string ciphers[26] = { "aaaaa","aaaab","aaaba","aaabb","aabaa","aabab","aabba","aabbb","abaaa","abaab","ababa","ababb","abbaa","abbab","abbba","abbbb","baaaa","baaab","baaba","baabb","babaa","babab","babba","babbb","bbaaa","bbaab" };
+				string sentence;
+				string word = "";
+				int coun = 0;
+				cout << "Enter a space between each ciphered letters and 3 spaces between each ciphered words\n\n";
+				cout << "Enter the Ciphered Message : ";
+				getline(cin, sentence);
+				cout << "The Deciphered Message is : ";
+				for (int i = 0; i < sentence.size(); i++)
+				{
+					while (sentence[i] != ' ' && i < sentence.size())
+					{
+						word += sentence[i];
+						i++;
+					}
+					for (int k = 0; k < 26; k++)
+					{
+						if (word == ciphers[k])
+						{
+							cout << letters[k];
+							word.clear();
+							break;
+						}
+					}
+					while (sentence[i] == ' '&& i < sentence.size())
+					{
+						coun++; i++;
+					}
+					if (coun == 3)cout << " ";
+					coun = 0;
+					i--;
+				}
+				cout << endl;
+			}
+
+			if (cipherNum == 6)
+			{
+				string word, key, askii = "abcdefghijklmnopqrstuvwzyz";
+				cout << "enter the Keys of cipher\n=> ";
+				cin >> key;
+				cin.ignore();
+				cout << "enter the letter \n=> ";
+				getline(cin, word);
+				for (int i = 0; i < word.size(); i++)
+				{
+					word[i] = char(tolower(word[i]));
+					word[i] + '0';
+					if (word[i] > 122 || word[i] < 97) { continue; }
+					for (int a = 0; a < 26; a++)
+					{
+						if (key[a] == word[i]) { word[i] = askii[a]; break; }
+					}
+
+				}
+				cout << "=> " << word << endl;
+			}
+
+			if (cipherNum == 7)
+			{
+				int a, b, y, m;
+				string change, word;
+				char new_key[5][5] = {
+					{ 'a','b','c','d','e' },
+					{ 'f','g','h','i','j' },
+					{ 'k','l','m','n','o' },
+					{ 'p','q','r','s','t' },
+					{ 'u','v','x','y','z' } };
+				char key[5][5] = {
+					{ 'a','b','c','d','e' },
+					{ 'f','g','h','i','j' },
+					{ 'k','l','m','n','o' },
+					{ 'p','q','r','s','t' },
+					{ 'u','v','x','y','z' } };
+				cout << "enter the key\n=>";
+				cin >> change;
+
+				for (int i = 0; i < 5; i++)
+				{
+					for (int j = 0; j < 5; j++)
+					{
+						m = (change[i] - '0') - 1;
+
+						new_key[m][j] = key[i][j];
+
+					}
+				}
+
+				for (int i = 0; i < 5; i++)
+				{
+					for (int j = 0; j < 5; j++)
+					{
+						m = (change[j] - '0') - 1;
+						key[i][m] = new_key[i][j];
+
+					}
+				}
+				cout << "enter your letter\n=>";
+				cin >> word;
+				for (int i = 0; i < word.size(); i = i + 2)
+				{
+					if (word[i] == ' ') { continue; }
+					if (word[i] == ',') { cout << "w"; i + i - 1; continue; }
+					word[i] + '0';
+					a = word[i] - 48;
+					b = word[i + 1] - 48;
+					cout << key[a - 1][b - 1];
+				}
+			}
+
+			if (cipherNum == 8)
+			{
+				char letters[] = { 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
+				string ciphers[] = { ".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.." };
+				string sentence;
+				int coun = 0;
+				string word;
+				cin.ignore();
+				cout << "Enter a space between each ciphered letters and 3 spaces between each ciphered words\n";
+				cout << "Enter the Ciphered Message : ";
+				getline(cin, sentence);
+				cout << "The Deciphered Message is : ";
+				for (int i = 0; i < sentence.size(); i++)
+				{
+					while (sentence[i] != ' ' && i < sentence.size())
+					{
+						word += sentence[i];
+						i++;
+					}
+					for (int k = 0; k < 26; k++)
+					{
+						if (word == ciphers[k])
+						{
+							cout << letters[k];
+							word.clear();
+							break;
+						}
+					}
+					while (sentence[i] == ' '&& i < sentence.size())
+					{
+						coun++; i++;
+					}
+					if (coun == 3)cout << " ";
+					coun = 0;
+					i--;
+				}
+				cout << endl;
+			}
+			if (cipherNum == 9)
+			{
+				string ciphertext, text;
+				char secretkey;
+				cout << "enter the cipher text : ";
+				cin.ignore();
+				getline(cin, ciphertext);
+				cout << endl;
+				cout << "enter the secret key : ";
+				cin >> secretkey;
+				cout << endl;
+				cout << "HEXA Representation :";
+				for (int i = 0; i < ciphertext.size(); i++)
+				{
+					text += int(ciphertext[i]) ^ (int(secretkey)) % (int(sizeof(ciphertext)));
+					cout << hex << int(text[i]);
+				}
+				cout << "\n" << "The Plain Text : " << text << "\n";
+			}
+
+			if (cipherNum == 10)
+			{
+				int key, m = 0;
+				cout << "\nchoose num bigger than 1 ==>>";
+				cin >> key;
+				string w;
+				cout << "\n enter the word which you would cipher ==>>";
+				cin >> w;
+				if (key == 1)
+				{
+					cout << w;
+				}
+				else if (key <= 0)
+				{
+					cout << "error >.< e5tar rakam tany ya zaky";
+				}
+				else if (key > 2 * (w.size() - 1))
+				{
+					cout << "this number is too longer pleas try again ^.^ ";
+				}
+				else
+				{
+
+					char c[key][28] = {};
+					for (int i = 0; i < key; i++)
+					{
+						for (int j = 0; j < 28; j++)
+						{
+							c[i][j] = '.';
+						}
+					}
+					int j = 0;
+					int i = 0;
+					int line = 0;
+					while (i < w.length())
+					{
+						while (line < key)
+						{
+							if (c[line][j] == ' ')
+							{
+								continue;
+							}
+							c[line][j] = 'x';
+							line++;
+							j++;
+							i++;
+							if (i >= w.length())
+								break;
+						}
+						line -= 2;
+
+						while (line >= 0)
+						{
+							if (c[line][j] == ' ')
+							{
+								continue;
+							}
+							c[line][j] = 'x';
+							line--;
+							j++;
+							i++;
+							if (i >= w.length())
+								break;
+						}
+						line += 2;
+					}
+
+
+					for (int i = 0; i < key; i++)
+					{
+						for (int j = 0; j < w.length(); j++)
+						{
+
+							if (c[i][j] == 'x')
+							{
+								c[i][j] = w[m];
+								m++;
+							}
+						}
+					}
+
+					j = 0;
+					i = 0;
+					line = 0;
+					while (i < w.length())
+					{
+						while (line < key)
+						{
+							if (c[line][j] == 'x')
+							{
+								continue;
+							}
+							cout << c[line][j];
+							line++;
+							j++;
+							i++;
+							if (i >= w.length())
+								break;
+						}
+						line -= 2;
+						while (line >= 0)
+						{
+							if (c[line][j] == 'x')
+							{
+								continue;
+							}
+							cout << c[line][j];
+							line--;
+							j++;
+							i++;
+							if (i >= w.length())
+								break;
+						}
+						line += 2;
+					}
+				}
+			}
+			return 0;
+		}
+	}
